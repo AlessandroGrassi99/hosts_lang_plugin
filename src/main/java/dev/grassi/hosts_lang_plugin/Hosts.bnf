@@ -1,0 +1,33 @@
+{
+    generate=[token-case="as-is" element-case="as-is"]
+    parserClass="dev.grassi.hosts_lang_plugin.parser.HostsParser"
+
+    extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+
+    psiClassPrefix="Hosts"
+    psiImplClassSuffix="Impl"
+    psiPackage="dev.grassi.hosts_lang_plugin.psi"
+    psiImplPackage="dev.grassi.hosts_lang_plugin.psi.impl"
+
+    elementTypeHolderClass="dev.grassi.hosts_lang_plugin.psi.HostsTypes"
+    elementTypeClass="dev.grassi.hosts_lang_plugin.psi.HostsElementType"
+    tokenTypeClass="dev.grassi.hosts_lang_plugin.psi.HostsTokenType"
+
+    psiImplUtilClass="dev.grassi.hosts_lang_plugin.psi.impl.HostsPsiImplUtil"
+
+    tokens=[
+        comment='regexp:#.*'
+    ]
+}
+
+hostsFile ::= line*
+
+private line ::= (host | end_line)
+
+host ::= address hostnames host_end
+address ::= IPv4 | IPv6
+
+hostnames ::= (hspace hostname)+ hspace?
+hostname ::= hostname_value
+
+host_end ::= end_line | <<eof>>

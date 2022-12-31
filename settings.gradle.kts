@@ -1,0 +1,1 @@
+rootProject.name = "hosts_lang_plugin"
